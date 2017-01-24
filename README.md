@@ -21,8 +21,8 @@ var dateString = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
 
 n 表示从1到6的级别，各自对应：秒，分钟，小时，天，月，年
 
-使用此格式表示对于小于等于指定级别的时间将显示为近时值，比如当前时为为2017年1月24日16点32分
-如果将2017年1月24日16时30分的日期用`L2-yyyy/mm/dd`格式规则进行转换那么得出的结果只是显示`2分钟前`，如果我们将 L2 改成 L1 那么此处将为按后面的`yyyy-mm-dd`显示`2017/01/24`。
+使用此格式表示对于小于等于指定级别的时间将显示为近时值，比如当前时间为2017年1月24日16点32分，
+如果将2017年1月24日16时30分的日期用`L2-yyyy/mm/dd`格式规则进行转换那么得出的结果是显示`2分钟前`，如果我们将 L2 改成 L1 那么此处将会按后面的`yyyy-mm-dd`显示`2017/01/24`。
 
 通过这个规则可以让你轻松获得 多少秒前、多少分钟前 的友好体验，并且不用担心时间近值超过级别之后会被显示成比如 26小时前 这种乌龙日期。
 
@@ -34,4 +34,8 @@ var dateString = dateFormat(new Date('2017/01/24 16:30'), 'L2-yyyy-mm-dd');
 // 2分钟前 or 2017-01-24
 ```
 
-&copy; AngusYoung <angusyoung@mrxcool.com> (mrxcool.com)
+&copy; AngusYoung
+
+E-mail <angusyoung@mrxcool.com>
+
+Home (http://mrxcool.com)
