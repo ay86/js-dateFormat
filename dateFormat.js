@@ -119,14 +119,15 @@
 			var aClock = [1000, 60, 60, 24, 30, 12].slice(0, parseInt($1 || 5, 10) + 1);
 			// console.log(aClock)
 			var oTime = {
-				time: fDateFormat(dDate, $2 || 'yyyy/mm/dd'),
+				time: mDateFormat(dDate, $2 || 'yyyy/mm/dd'),
 				unit: ''
 			};
 
 			for (var i = 0; i < aClock.length; i++) {
 				nTimeDiff = Math.floor(nTimeDiff / aClock[i]);
 				// console.log('==', nTimeDiff, aUnit[i]);
-				if (nTimeDiff < aClock[i + 1]) {
+				// console.log(aClock[i + 1]);
+				if (nTimeDiff < (aClock[i + 1] || 999999)) {
 					oTime = {
 						time: nTimeDiff,
 						unit: aUnit[i]
