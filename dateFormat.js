@@ -115,19 +115,20 @@
 			var dTime = dDate.getTime();
 			var nTimeDiff = dNow - dTime;
 
-			var aUnit = ['秒', '分钟', '小时', '天', '月', '年'];
-			var aClock = [1000, 60, 60, 24, 30, 12].slice(0, parseInt($1 || 5, 10) + 1);
-			// console.log(aClock)
+			var aClock = [1000, 60, 60, 24, 30, 12, 2];
+			// 单位比时间范围少一项，因为在最后一项的时候将会显示具体时间不需要加单位
+			var aUnit = ['秒', '分钟', '小时', '天', '个月', '年'];
+			var aEqClock = aClock.slice(0, parseInt($1 || 5, 10) + 1);
+			// console.log(aEqClock);
 			var oTime = {
 				time: mDateFormat(dDate, $2 || 'yyyy/mm/dd'),
 				unit: ''
 			};
 
-			for (var i = 0; i < aClock.length; i++) {
-				nTimeDiff = Math.floor(nTimeDiff / aClock[i]);
-				// console.log('==', nTimeDiff, aUnit[i]);
-				// console.log(aClock[i + 1]);
-				if (nTimeDiff < (aClock[i + 1] || 999999)) {
+			for (var i = 0; i < aEqClock.length; i++) {
+				nTimeDiff = Math.floor(nTimeDiff / aEqClock[i]);
+				// console.log('=> %s%s\n   下一级别单位【%s】换算值：%s', nTimeDiff, aUnit[i], aUnit[i + 1], aClock[i + 1]);
+				if ((nTimeDiff < aEqClock[i + 1])) {
 					oTime = {
 						time: nTimeDiff,
 						unit: aUnit[i]
