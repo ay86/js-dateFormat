@@ -125,15 +125,17 @@
 				unit: ''
 			};
 
-			for (var i = 0; i < aEqClock.length; i++) {
-				nTimeDiff = Math.floor(nTimeDiff / aEqClock[i]);
-				// console.log('=> %s%s\n   下一级别单位【%s】换算值：%s', nTimeDiff, aUnit[i], aUnit[i + 1], aClock[i + 1]);
-				if ((nTimeDiff < aEqClock[i + 1])) {
-					oTime = {
-						time: nTimeDiff,
-						unit: aUnit[i]
-					};
-					break;
+			if (nTimeDiff >= 0) {
+				for (var i = 0; i < aEqClock.length; i++) {
+					nTimeDiff = Math.floor(nTimeDiff / aEqClock[i]);
+					// console.log('=> %s%s\n   下一级别单位【%s】换算值：%s', nTimeDiff, aUnit[i], aUnit[i + 1], aClock[i + 1]);
+					if ((nTimeDiff < aEqClock[i + 1])) {
+						oTime = {
+							time: nTimeDiff,
+							unit: aUnit[i]
+						};
+						break;
+					}
 				}
 			}
 

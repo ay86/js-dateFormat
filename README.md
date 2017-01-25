@@ -17,7 +17,12 @@ eg.
 var dateFormat = require('dataFormat');
 var dateString = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
 // 2017/01/24 16:24:56
+
+console.log(dateFormat(new Date(), '星期w HH:MM:ss mm/dd/yyyy'));
+// 星期二 16:24:56 01/24/2017
 ```
+自由组合，就是这么简单。
+
 ###特殊的格式规则`Ln-`
 
 n 表示从1到6的级别，各自对应：秒，分钟，小时，天，月，年
