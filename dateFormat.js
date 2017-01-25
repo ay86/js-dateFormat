@@ -27,13 +27,18 @@
 			var _year = dDate.getFullYear().toString();
 			return _year.substr(_year.length - s.length, s.length);
 		});
-		sPattern = sPattern.replace(/Y+/g, function (s) {
-			var _cyear = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+		sPattern = sPattern.replace(/Y{2,4}/g, function (s) {
+			var _cn_year_array = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
 			var _year = dDate.getFullYear().toString();
-			_year = _year.replace(/\d/g, function (s) {
-				return _cyear[s];
-			});
-			return _year.substr(_year.length - s.length, s.length);
+			if (s.length === 3) {
+				return s;
+			}
+			else {
+				_year = _year.replace(/\d/g, function (s) {
+					return _cn_year_array[s];
+				});
+				return _year.substr(_year.length - s.length, s.length);
+			}
 		});
 
 		// 月
@@ -46,6 +51,11 @@
 				return _month;
 			}
 		});
+		sPattern = sPattern.replace(/M{4}/g, function () {
+			var _month = dDate.getMonth().toString();
+			var _cn_month_array = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
+			return _cn_month_array[_month];
+		});
 
 		// 日
 		sPattern = sPattern.replace(/d+/g, function (s) {
@@ -55,6 +65,21 @@
 			}
 			else {
 				return _day;
+			}
+		});
+		sPattern = sPattern.replace(/D{4}/g, function () {
+			var _day = dDate.getDate().toString();
+			var _cn_day_array = ['十', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+			if (_day.length > 1) {
+				var _day_split = _day.split('');
+				var _cn_day = _cn_day_array[0] + (_day_split[1] == '0' ? '' : _cn_day_array[_day_split[1]]);
+				if (_day_split[0] != '1') {
+					_cn_day = _cn_day_array[_day_split[0]] + _cn_day;
+				}
+				return _cn_day;
+			}
+			else {
+				return _cn_day_array[_day];
 			}
 		});
 
@@ -102,10 +127,10 @@
 		});
 
 		// 周
-		sPattern = sPattern.replace(/w/g, function () {
-			var _cweek = ['日', '一', '二', '三', '四', '五', '六'];
+		sPattern = sPattern.replace(/w/gi, function () {
+			var _cn_week_array = ['日', '一', '二', '三', '四', '五', '六'];
 			var _week = dDate.getDay();
-			return _cweek[_week];
+			return _cn_week_array[_week];
 		});
 
 		// 之前

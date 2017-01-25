@@ -6,8 +6,11 @@ eg.
 
 	yyyy-mm-dd  => 2017-01-24
 	mm/dd/yyyy  => 01/24/2017
-	YYYY        => 二〇一七     （中文年）
-	w           => 二          （中文周几）
+	YYYY        => 二〇一七（年）
+	YY          => 一七（年）
+	MMMM        => 十一（月）
+	DDDD        => 二十四（日）
+	W           => （周）二
 	HH:MM:ss    => 16:24:56    （24小时制）
 	hh:MM:ss    => 04:24:56    （12小时制）
 	
@@ -15,11 +18,14 @@ eg.
 
 ```js
 var dateFormat = require('dataFormat');
-var dateString = dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss');
+console.log(dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'));
 // 2017/01/24 16:24:56
 
-console.log(dateFormat(new Date(), '星期w HH:MM:ss mm/dd/yyyy'));
+console.log(dateFormat(new Date(), '星期W HH:MM:ss mm/dd/yyyy'));
 // 星期二 16:24:56 01/24/2017
+
+console.log(dateFormat(new Date(), 'YYYY年MMMM月DDDD日 H点M分s秒'));
+// 二〇一七年一月二十四日 16点24分56秒
 ```
 自由组合，就是这么简单。
 
@@ -36,12 +42,12 @@ eg.
 
 ```js
 var dateFormat = require('dateFormat');
-var dateString = dateFormat(new Date('2017/01/24 16:30'), 'L2-yyyy-mm-dd');
+console.log(dateFormat(new Date('2017/01/24 16:30'), 'L2-yyyy-mm-dd'));
 // 2分钟前 or 2017-01-24
 ```
 
 &copy; AngusYoung
 
-E-mail <angusyoung@mrxcool.com>
+E-mail: <angusyoung@mrxcool.com>
 
-Home (http://mrxcool.com)
+Home: http://mrxcool.com
