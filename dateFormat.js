@@ -1,4 +1,4 @@
-/**
+/*!*
  * @Author Angus <angusyoung@mrxcool.com>
  * @Description JavaScript Date Format
  * @Since 2017/1/24
@@ -14,9 +14,26 @@
 		module.exports = factory();
 	}
 	else {
-		root.dateFormat = factory();
+		var _factory = factory();
+		root.dateFormat = _factory.dateFormat;
+		root.setLang = _factory.lang;
 	}
 })(this, function () {
+
+	var oLangDict = {
+		years : ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'],
+		months: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+		days  : ['十', '一', '二', '三', '四', '五', '六', '七', '八', '九'],
+		weeks : ['日', '一', '二', '三', '四', '五', '六'],
+		units : ['秒', '分钟', '小时', '天', '个月', '年'],
+		now   : '刚刚',
+		ago   : '前'
+	};
+
+	function setLang(oLang) {
+		oLangDict = oLang;
+	}
+
 	/**
 	 * @param dDate 日期数据
 	 * @param sPattern 格式字符串
@@ -28,14 +45,14 @@
 			return _year.substr(_year.length - s.length, s.length);
 		});
 		sPattern = sPattern.replace(/Y{2,4}/g, function (s) {
-			var _cn_year_array = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+			var _year_array = oLangDict.years;
 			var _year = dDate.getFullYear().toString();
 			if (s.length === 3) {
 				return s;
 			}
 			else {
 				_year = _year.replace(/\d/g, function (s) {
-					return _cn_year_array[s];
+					return _year_array[s];
 				});
 				return _year.substr(_year.length - s.length, s.length);
 			}
@@ -53,8 +70,8 @@
 		});
 		sPattern = sPattern.replace(/M{4}/g, function () {
 			var _month = dDate.getMonth().toString();
-			var _cn_month_array = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
-			return _cn_month_array[_month];
+			var _month_array = oLangDict.months;
+			return _month_array[_month];
 		});
 
 		// 日
@@ -69,17 +86,17 @@
 		});
 		sPattern = sPattern.replace(/D{4}/g, function () {
 			var _day = dDate.getDate().toString();
-			var _cn_day_array = ['十', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+			var _day_array = oLangDict.days;
 			if (_day.length > 1) {
 				var _day_split = _day.split('');
-				var _cn_day = _cn_day_array[0] + (_day_split[1] == '0' ? '' : _cn_day_array[_day_split[1]]);
+				var _cn_day = _day_array[0] + (_day_split[1] == '0' ? '' : _day_array[_day_split[1]]);
 				if (_day_split[0] != '1') {
-					_cn_day = _cn_day_array[_day_split[0]] + _cn_day;
+					_cn_day = _day_array[_day_split[0]] + _cn_day;
 				}
 				return _cn_day;
 			}
 			else {
-				return _cn_day_array[_day];
+				return _day_array[_day];
 			}
 		});
 
@@ -128,9 +145,9 @@
 
 		// 周
 		sPattern = sPattern.replace(/w/gi, function () {
-			var _cn_week_array = ['日', '一', '二', '三', '四', '五', '六'];
+			var _week_array = oLangDict.weeks;
 			var _week = dDate.getDay();
-			return _cn_week_array[_week];
+			return _week_array[_week];
 		});
 
 		// 之前
@@ -142,7 +159,7 @@
 
 			var aClock = [1000, 60, 60, 24, 30, 12, 2];
 			// 单位比时间范围少一项，因为在最后一项的时候将会显示具体时间不需要加单位
-			var aUnit = ['秒', '分钟', '小时', '天', '个月', '年'];
+			var aUnit = oLangDict.units;
 			var aEqClock = aClock.slice(0, parseInt($1 || 5, 10) + 1);
 			// console.log(aEqClock);
 			var oTime = {
@@ -151,7 +168,7 @@
 			};
 
 			if (nTimeDiff >= 0 && nTimeDiff < 999) {
-				return '刚刚';
+				return oLangDict.now;
 			}
 			else if (nTimeDiff > 999) {
 				for (var i = 0; i < aEqClock.length; i++) {
@@ -167,10 +184,14 @@
 				}
 			}
 
-			return oTime.time + (oTime.unit ? oTime.unit + '前' : '');
+			return oTime.time + (oTime.unit ? oTime.unit + oLangDict.ago : '');
 		});
+
 		return sPattern;
 	}
 
-	return mDateFormat;
+	return {
+		dateFormat: mDateFormat,
+		lang      : setLang
+	};
 });
