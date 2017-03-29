@@ -64,7 +64,9 @@ setLang(langObject);
 console.log(dateFormat(new Date(),'W MMMM DDDD YYYY HH:MM:ss'));
 // Mon Jan 30 2017 19:54:02
 ```
----
+
+## Author
+
 &copy; AngusYoung
 
 E-mail: <angusyoung@mrxcool.com>
