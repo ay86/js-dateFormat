@@ -1,4 +1,4 @@
-#JavaScript Date Format
+# JavaScript Date Format
 
 通过格式规则对日期时间的数据进行格式化，显示更加友好并且自由组合的方式。
 
@@ -16,10 +16,10 @@ eg.
 	HH:MM:ss    => 16:24:56    （24小时制）
 	hh:MM:ss    => 04:24:56    （12小时制）
 	
-###Usage
+### Usage
 
 ```js
-var dateFormat = require('dataFormat').dateFormat;
+var dateFormat = require('dateFormat').dateFormat;
 console.log(dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'));
 // 2017/01/24 16:24:56
 
@@ -31,7 +31,7 @@ console.log(dateFormat(new Date(), 'YYYY年MMMM月DDDD日 H点M分s秒'));
 ```
 自由组合，就是这么简单。
 
-###特殊的格式规则`Ln-`
+### 特殊的格式规则`Ln-`
 
 n 表示从1到6的级别，各自对应：秒，分钟，小时，天，月，年
 
@@ -48,7 +48,7 @@ console.log(dateFormat(new Date('2017/01/24 16:30'), 'L2-yyyy-mm-dd'));
 // 2分钟前 or 2017-01-24
 ```
 
-###加载语言包
+### 加载语言包
 
 > 0.9.7+
 
@@ -64,7 +64,7 @@ setLang(langObject);
 console.log(dateFormat(new Date(),'W MMMM DDDD YYYY HH:MM:ss'));
 // Mon Jan 30 2017 19:54:02
 ```
-
+---
 &copy; AngusYoung
 
 E-mail: <angusyoung@mrxcool.com>
